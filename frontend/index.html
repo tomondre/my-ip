@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <title>My IP</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+    <link rel="stylesheet" href="Home.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js"></script>
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📍</text></svg>">
+    <meta name="theme-color" content="#478ac9">
+</head>
+<body class="u-body u-xl-mode u-grey-5  " data-lang="en">
+<section class="u-clearfix u-section-1" id="carousel_0c4a">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+            <div class="u-layout">
+                <div class="u-layout-row">
+                    <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-30 u-layout-cell-1">
+                        <div class="u-container-layout u-valign-middle u-container-layout-1">
+                            <h2 id="ip" class="u-text u-text-1"></h2>
+                            <p id="city" class="u-text u-text-2"></p>
+                            <p id="country" class="u-text u-text-3"></p>
+                            <p id="isp" class="u-text u-text-4"></p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-right-cell u-size-30 u-layout-cell-2">
+                        <div class="u-container-layout u-container-layout-2">
+                            <div class="u-expanded u-grey-10 u-map">
+                                <div class="embed-responsive" id="map">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    fetch('https://my-ip-api.tomondre.com/').then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        let ip = json.ip_address;
+        let longitude = json.longitude;
+        let latitude = json.latitude;
+        let country = json.country;
+        let city = json.city;
+        let isp = json.connection.autonomous_system_organization;
+
+        console.log(longitude, latitude, country, city, isp)
+        $('#ip').text('IP: ' + ip);
+        $('#country').text('Country: ' + country);
+        $('#city').text('City: ' + city);
+        $('#isp').text('ISP: ' + isp);
+        $('#map').html("\n" +
+            "<iframe id=\"map\" class=\"embed-responsive-item\"\n" +
+            `src=\"https://maps.google.com/maps?output=embed&amp;q=${latitude},${longitude}&amp&z=6\"></iframe>`)
+    }).catch(function (err) {
+        console.log(err);
+    });
+</script>
+</body>
+</html>
