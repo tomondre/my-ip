@@ -34,7 +34,7 @@ jobs:
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-      CLOUDFLARE_API_TOKEN: ${a{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       KUBE_CONFIG_PATH: ~/kubeconfig.yaml
       TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
     steps:
